@@ -33,13 +33,13 @@ public class EmailService {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, StandardCharsets.UTF_8.name());
 
             mimeMessageHelper.setFrom(new InternetAddress(senderEmail, senderName));
-            mimeMessageHelper.setTo(InternetAddress.parse(taskDto.getUserEmail()));
+            mimeMessageHelper.setTo(InternetAddress.parse(taskDto.userEmail()));
             mimeMessageHelper.setSubject("Task Notification");
 
             Context context = new Context();
-            context.setVariable("taskTitle", taskDto.getTitle());
-            context.setVariable("eventDate", taskDto.getEventDate());
-            context.setVariable("description", taskDto.getDescription());
+            context.setVariable("taskTitle", taskDto.title());
+            context.setVariable("eventDate", taskDto.eventDate());
+            context.setVariable("description", taskDto.description());
 
             String template = templateEngine.process("notification", context);
             mimeMessageHelper.setText(template, true);
